@@ -25,19 +25,19 @@ int main (int argc, char **argv)
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(SERV_PORT);
     
-    bind (listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+    bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
     
-    listen (listenfd, LISTENQ);
+    listen(listenfd, LISTENQ);
     
     printf("%s\n","Server running...waiting for connections.");
     
     while(1){
         clilen = sizeof(cliaddr);
         connfd = accept (listenfd, (struct sockaddr *) &cliaddr, &clilen);
-        printf("%s\n","Received request...");
+        printf("%s\n", "Received request...");
         
         while ( (n = recv(connfd, buf, MAXLINE,0)) > 0)  {
-            printf("%s","String received from and resent to the client:");
+            printf("%s", "String received from and resent to the client:");
             puts(buf);
             send(connfd, buf, n, 0);
         }
